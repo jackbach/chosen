@@ -131,7 +131,8 @@ Copyright (c) 2011 by Harvest
       this.disable_search_threshold = this.options.disable_search_threshold || 0;
       this.search_contains = this.options.search_contains || false;
       this.choices = 0;
-      return this.results_none_found = this.options.no_results_text || "No results match";
+      this.results_none_found = this.options.no_results_text || "No results match";
+      return this.append_placeholder = this.options.append_placeholder;
     };
 
     AbstractChosen.prototype.mouse_enter = function() {
