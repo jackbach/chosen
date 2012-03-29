@@ -30,6 +30,7 @@ class Chosen extends AbstractChosen
     @f_width = @form_field_jq.outerWidth()
     
     @default_text = if @form_field_jq.data 'placeholder' then @form_field_jq.data 'placeholder' else @default_text_default
+    @placeholder_text = if @append_placeholder then @default_text else ''
     
     container_div = ($ "<div />", {
       id: @container_id
@@ -38,7 +39,7 @@ class Chosen extends AbstractChosen
     })
     
     if @is_multiple
-      container_div.html '<ul class="chzn-choices"><li class="search-field"><input type="text" value="' + @default_text + '" class="default" autocomplete="off" style="width:25px;" /></li></ul><div class="chzn-drop" style="left:-9000px;"><ul class="chzn-results"></ul></div>'
+      container_div.html '<ul class="chzn-choices"><li class="search-field"><input type="text" value="' + @default_text + '" placeholder="' + @placeholder_text + '" class="default" autocomplete="off" style="width:25px;" /></li></ul><div class="chzn-drop" style="left:-9000px;"><ul class="chzn-results"></ul></div>'
     else
       container_div.html '<a href="javascript:void(0)" class="chzn-single chzn-default"><span>' + @default_text + '</span><div><b></b></div></a><div class="chzn-drop" style="left:-9000px;"><div class="chzn-search"><input type="text" autocomplete="off" /></div><ul class="chzn-results"></ul></div>'
 
@@ -529,7 +530,7 @@ class Chosen extends AbstractChosen
         style_block += style + ":" + @search_field.css(style) + ";"
       
       div = $('<div />', { 'style' : style_block })
-      div.text @search_field.val()
+      div.text(@search_field.val() or @placeholder_text)
       $('body').append div
 
       w = div.width() + 25
